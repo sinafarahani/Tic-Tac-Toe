@@ -2,8 +2,6 @@
 
 #include "MainWindow.h"
 #include "Graphics.h"
-#include "SoundEffect.h";
-#include "FrameTimer.h"
 #include "Board.h"
 #include "AI.h"
 
@@ -31,7 +29,6 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	FrameTimer ft;
 	/********************************/
 	/*  User Variables              */
 	enum class players
