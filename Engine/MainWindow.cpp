@@ -26,7 +26,7 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t* pArgs)
 	wr.top = 50;
 	wr.bottom = Graphics::ScreenHeight + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
-	hWnd = CreateWindow(wndClassName, L"Chili DirectX Framework",
+	hWnd = CreateWindow(wndClassName, L"Tic Tac Toe",
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		wr.left, wr.top, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, hInst, this);
