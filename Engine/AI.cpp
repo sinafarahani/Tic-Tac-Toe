@@ -25,6 +25,9 @@ std::pair<int,int> ai::run(board& brd)
 	if (emptyPlaces.size() <= 2) {
 		return emptyPlaces.back();
 	}
+	if (centerPlaced && aiSymbol == board::place::O) {
+		return PlaceInRandomCenter();
+	}
 	return PlaceInRandomCorner();
 }
 
@@ -144,6 +147,33 @@ std::pair<int, int> ai::PlaceInRandomCorner()
 		std::sample(
 			corners.begin(),
 			corners.end(),
+			std::back_inserter(sample),
+			1,
+			std::mt19937{ std::random_device{}() }
+		);
+		return sample.at(0);
+	}
+}
+
+std::pair<int, int> ai::PlaceInRandomCenter()
+{
+	std::vector<std::pair<int, int>> centers;
+	for (const auto& corner : emptyPlaces) {
+		if (corner == std::make_pair(0, 1)) {
+			centers.push_back(std::make_pair(0, 1));
+		}if (corner == std::make_pair(1, 2)) {
+			centers.push_back(std::make_pair(1, 2));
+		}if (corner == std::make_pair(1, 0)) {
+			centers.push_back(std::make_pair(1, 0));
+		}if (corner == std::make_pair(2, 1)) {
+			centers.push_back(std::make_pair(2, 1));
+		}
+	}
+	if (!centers.empty()) {
+		std::vector<std::pair<int, int>> sample;
+		std::sample(
+			centers.begin(),
+			centers.end(),
 			std::back_inserter(sample),
 			1,
 			std::mt19937{ std::random_device{}() }

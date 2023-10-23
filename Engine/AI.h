@@ -12,6 +12,7 @@ private:
 	void update(board& brd);
 	std::pair<int, int> atkOrDef(std::array<std::vector<int>, 3> target);
 	std::pair<int, int> PlaceInRandomCorner();
+	std::pair<int, int> PlaceInRandomCenter();
 	const board::place& aiSymbol;
 	board::place state[3][3];
 	std::vector<std::pair<int, int>> emptyPlaces;
