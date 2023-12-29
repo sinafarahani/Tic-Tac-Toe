@@ -19,11 +19,14 @@ public:
 		NotOver
 	};
 	board();
-	void show(Graphics& gfx);
+	void show(Graphics& gfx) const;
 	place getPlace(std::pair<int, int> pos);
 	bool setPlace(std::pair<int, int> pos, place p);
+	bool board::unsetPlace(std::pair<int, int> pos);
 	place getResult();
 	bool IsFull();
+	std::vector<std::pair<int, int>> getEmptyPlaces() const;
+	void reset();
 private:
 	bool isEmpty(std::pair<int, int> pos);
 	bool checkGameover();

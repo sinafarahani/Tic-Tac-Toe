@@ -4,16 +4,17 @@
 #include "Graphics.h"
 #include "Board.h"
 #include "AI.h"
+#include "minimaxAI.h";
+#include "Font.h"
 
 using namespace std;
 
 class Game
 {
-	enum class boolshits {
-		GameOver = 0b00000001,
-		Started = 0b00000010,
-		setting = 0b00000100,
-		paused = 0b00001000
+	enum class opponents {
+		OpAi = 0b00000001,
+		minimax = 0b00000010,
+		human = 0b00000100
 	};
 public:
 	Game( class MainWindow& wnd );
@@ -25,6 +26,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void restart();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -42,7 +44,10 @@ private:
 	players turn;
 	board brd;
 	ai ai;
+	minimaxAi AI;
+	opponents opponent = opponents::OpAi;
+	Font F = "Images\\Fixedsys16x28.bmp";
+	bool started = false;
 	bool gameover = false;
-
 	/********************************/
 };

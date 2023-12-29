@@ -9,25 +9,26 @@ board::board()
 	}
 }
 
-void board::show(Graphics& gfx)
+void board::show(Graphics& gfx) const
 {
-	for (int j = 239; j <= 241; j++) {
+	
+	for (int j = gfx.ScreenHeight / 3 - 1; j <= gfx.ScreenHeight / 3 + 1; j++) {
 		for (int i = 10; i < gfx.ScreenWidth - 10; i++) {
 			gfx.PutPixel(i, j, Colors::White);
 		}
 	}
-	for (int j = 479; j <= 481; j++) {
+	for (int j = 2 * gfx.ScreenHeight / 3 - 1; j <= 2 * gfx.ScreenHeight / 3 + 1; j++) {
 		for (int i = 10; i < gfx.ScreenWidth - 10; i++) {
 			gfx.PutPixel(i, j, Colors::White);
 		}
 	}
 	for (int j = 10; j < gfx.ScreenHeight - 10; j++) {
-		for (int i = 239; i <= 241; i++) {
+		for (int i = gfx.ScreenWidth / 3 - 1; i <= gfx.ScreenWidth / 3 + 1; i++) {
 			gfx.PutPixel(i, j, Colors::White);
 		}
 	}
 	for (int j = 10; j < gfx.ScreenHeight - 10; j++) {
-		for (int i = 479; i <= 481; i++) {
+		for (int i = 2 * gfx.ScreenWidth / 3 - 1; i <= 2 * gfx.ScreenWidth / 3 + 1; i++) {
 			gfx.PutPixel(i, j, Colors::White);
 		}
 	}
@@ -57,6 +58,15 @@ bool board::setPlace(std::pair<int, int> pos, place p)
 {
 	if (isEmpty(pos)) {
 		tablePlaces[pos.first][pos.second] = p;
+		return true;
+	}
+	return false;
+}
+
+bool board::unsetPlace(std::pair<int, int> pos)
+{
+	if (!isEmpty(pos)) {
+		tablePlaces[pos.first][pos.second] = place::MPT;
 		return true;
 	}
 	return false;
@@ -132,4 +142,29 @@ board::place board::getResult()
 bool board::IsFull()
 {
 	return isFull;
+}
+
+std::vector<std::pair<int, int>> board::getEmptyPlaces() const
+{
+	std::vector<std::pair<int, int>>MPT;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (tablePlaces[i][j] == place::MPT) {
+				MPT.push_back(std::make_pair(i, j));
+			}
+		}
+	}
+	return MPT;
+}
+
+void board::reset()
+{
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			tablePlaces[i][j] = place::MPT;
+		}
+	}
+	winCond = gameoverStates::NotOver;
+	overPlace = -1;
+	isFull = false;
 }
